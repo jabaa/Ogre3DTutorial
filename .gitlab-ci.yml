@@ -1,0 +1,45 @@
+
+variables:
+    CONAN_USERNAME: "user"
+    CONAN_REFERENCE: "Ogre3DTutorial/1.0"
+    CONAN_CHANNEL: "channel"
+    CONAN_LOGIN_USERNAME: "user"
+    CONAN_UPLOAD: "git@github.com:jabaa/Ogre3DTutorial.git"
+
+.build-template: &build-template
+    before_script:
+        - sudo pip install --upgrade conan_package_tools
+        - conan user
+    script:
+        - python build.py
+
+gcc-4.9:
+    image: lasote/conangcc49
+    variables:
+        CONAN_GCC_VERSIONS: "4.9"
+    <<: *build-template
+
+gcc-5.4:
+    image: lasote/conangcc54
+    variables:
+        CONAN_GCC_VERSIONS: "5.4"
+    <<: *build-template
+
+gcc-6.3:
+    image: lasote/conangcc63
+    variables:
+        CONAN_GCC_VERSIONS: "6.3"
+    <<: *build-template
+
+clang-3.9:
+    image: lasote/conanclang39
+    variables:
+        CONAN_CLANG_VERSIONS: "3.9"
+    <<: *build-template
+
+clang-4.0:
+    image: lasote/conanclang40
+    variables:
+        CONAN_CLANG_VERSIONS: "4.0"
+    <<: *build-template
+
